@@ -45,10 +45,10 @@ export const educationSchema=z.object({
             degree:optionalString,
             school:optionalString,
             cgpa: z
-            .union([z.string(), z.number()]) 
-            .default('')
-            .transform((val) => (val === "" ? null : Number(val))) 
-            .optional(),
+            .union([z.string(), z.number(), z.null()]) // Allow `null`
+            .default("")
+            .transform((val) => (val === "" ? null : Number(val)))
+            .optional(),          
             startDate:optionalString,
             endDate:optionalString
         })
@@ -73,6 +73,8 @@ export const resumeSchema=z.object({
     ...educationSchema.shape,
     ...skillsSchema.shape,
     ...summarySchema.shape,
+    colorHex:optionalString,
+    borderStyle:optionalString
 })
 
 export type ResumeValues=Omit<z.infer<typeof resumeSchema>,"photo"> & {
