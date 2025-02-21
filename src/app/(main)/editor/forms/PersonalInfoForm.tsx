@@ -33,7 +33,6 @@ export default function PersonalInfoForm({
 
   useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {
-      //will trigger if anything in form changes
       const isValid = await form.trigger();
       if (!isValid) return;
       setResumeData({...resumeData, ...values});

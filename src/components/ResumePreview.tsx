@@ -58,6 +58,7 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
     colorHex,
     borderStyle,
   } = resumeData;
+  
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
   useEffect(() => {
     const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";

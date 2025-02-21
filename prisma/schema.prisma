@@ -43,14 +43,15 @@ model Resume {
 }
 
 model WorkExperience {
-  id          String    @id @default("#000000") //id for the particular work experience 
+  id String @id @default(cuid())
+
   position    String?
   company     String?
   startDate   DateTime?
   endDate     DateTime?
   description String?
 
-  resumeId String //the resumeId to which a particular work experience belongs to
+  resumeId String
   resume   Resume @relation(fields: [resumeId], references: [id])
 
   createdAt DateTime @default(now())
@@ -58,13 +59,12 @@ model WorkExperience {
 
   @@map("work_experiences")
 }
-
 model Education {
   id String @id @default(cuid())
 
   degree    String?
   school    String?
-  cgpa      Decimal? 
+  cgpa      String? 
   startDate DateTime?
   endDate   DateTime?
 

@@ -51,7 +51,7 @@ export default function EducationForm({
       if (!isValid) return;
       setResumeData({
         ...resumeData,
-        educations: values.educations?.filter((edu) => edu !== undefined),
+        educations: values.educations?.filter((edu) => edu !== undefined) || [],
       });
     });
     return unsubscribe;
@@ -68,9 +68,10 @@ export default function EducationForm({
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    if (over && active.id == over.id) {
+    if (over && active.id !== over.id) {
       const oldIndex = fields.findIndex((field) => field.id === active.id);
       const newIndex = fields.findIndex((field) => field.id === over.id);
       move(oldIndex, newIndex);
@@ -109,23 +110,23 @@ export default function EducationForm({
               ))}
             </SortableContext>
           </DndContext>
+          <div className="flex justify-center">
+            <Button
+              type="button"
+              onClick={() =>
+                append({
+                  degree: "",
+                  school: "",
+                  cgpa: "",
+                  startDate: "",
+                  endDate: "",
+                })
+              }
+            >
+              Add Education
+            </Button>
+          </div>
         </form>
-        <div className="flex justify-center">
-          <Button
-            type="button"
-            onClick={() =>
-              append({
-                degree: "",
-                school: "",
-                cgpa: undefined,
-                startDate: "",
-                endDate: "",
-              })
-            }
-          >
-            Add Education
-          </Button>
-        </div>
       </Form>
     </div>
   );
@@ -160,7 +161,7 @@ function EducationItem({ id, form, index, remove }: EducationItemProps) {
           className="size-5 cursor-grab text-muted-foreground focus:outline-none"
           {...attributes}
           {...listeners}
-        ></GripHorizontal>
+        />
       </div>
       <FormField
         control={form.control}
@@ -197,14 +198,6 @@ function EducationItem({ id, form, index, remove }: EducationItemProps) {
             <FormControl>
               <Input
                 {...field}
-                type="number"
-                value={field.value ?? ""}
-                onChange={(e) => {
-                  const value = e.target.value
-                    ? parseFloat(e.target.value)
-                    : null;
-                  field.onChange(value);
-                }}
               />
             </FormControl>
             <FormMessage />

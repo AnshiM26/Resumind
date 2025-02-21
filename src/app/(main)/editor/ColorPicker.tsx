@@ -31,7 +31,7 @@ export default function ColorPicker({ color, onChange }: ColorPickerProps) {
         className="border-none bg-transparent shadow-none"
         align="end"
       >
-        <TwitterPicker color={color} onChange={onChange} triangle="top-right"/>
+        <TwitterPicker color={color} onChange={onChange} triangle="top-right" />
       </PopoverContent>
     </Popover>
   );

@@ -8,7 +8,7 @@ export const generalInfoSchema=z.object({
 export type GeneralInfoValues=z.infer<typeof generalInfoSchema>;
 
 export const personalInfoSchema=z.object({
-    photo: z.custom<File | undefined>()
+    photo: z.custom<File | undefined >()
     .refine(
         (file)=>!file||(file instanceof File && file.type.startsWith("image/")),
         "Must be an image file"
@@ -44,13 +44,9 @@ export const educationSchema=z.object({
         z.object({
             degree:optionalString,
             school:optionalString,
-            cgpa: z
-            .union([z.string(), z.number(), z.null()]) // Allow `null`
-            .default("")
-            .transform((val) => (val === "" ? null : Number(val)))
-            .optional(),          
-            startDate:optionalString,
-            endDate:optionalString
+            cgpa: optionalString,
+          startDate: optionalString,
+          endDate: optionalString,
         })
     ).optional(),
 })
